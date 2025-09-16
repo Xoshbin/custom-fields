@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Database\Factories;
+namespace Xoshbin\CustomFields\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
