@@ -4,6 +4,7 @@ namespace Xoshbin\CustomFields;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 
 class CustomFieldsPlugin implements Plugin
 {
@@ -14,7 +15,10 @@ class CustomFieldsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        //
+        $panel
+            ->resources([
+                CustomFieldDefinitionResource::class,
+            ]);
     }
 
     public function boot(Panel $panel): void

@@ -2,10 +2,7 @@
 
 namespace Xoshbin\CustomFields;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
@@ -100,9 +97,7 @@ class CustomFieldsServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('custom-fields', __DIR__ . '/../resources/dist/components/custom-fields.js'),
-            Css::make('custom-fields-styles', __DIR__ . '/../resources/dist/custom-fields.css'),
-            Js::make('custom-fields-scripts', __DIR__ . '/../resources/dist/custom-fields.js'),
+            // Assets will be added when needed
         ];
     }
 
@@ -146,7 +141,8 @@ class CustomFieldsServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_custom-fields_table',
+            'create_custom_field_definitions_table',
+            'create_custom_field_values_table',
         ];
     }
 }
