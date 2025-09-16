@@ -1,6 +1,6 @@
 <?php
 
-namespace Xoshbin\CustomFields\Components;
+namespace Xoshbin\CustomFields\Filament\Forms\Components;
 
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
