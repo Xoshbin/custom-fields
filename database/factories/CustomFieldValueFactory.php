@@ -2,9 +2,9 @@
 
 namespace Xoshbin\CustomFields\Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Xoshbin\CustomFields\Models\CustomFieldDefinition;
 use Xoshbin\CustomFields\Models\CustomFieldValue;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Xoshbin\CustomFields\Models\CustomFieldValue>
@@ -44,7 +44,7 @@ class CustomFieldValueFactory extends Factory
     /**
      * Create a text field value.
      */
-    public function textValue(string $value = null): static
+    public function textValue(?string $value = null): static
     {
         return $this->state(fn (array $attributes) => [
             'field_value' => [
@@ -56,7 +56,7 @@ class CustomFieldValueFactory extends Factory
     /**
      * Create a translatable text field value.
      */
-    public function translatableTextValue(array $translations = null): static
+    public function translatableTextValue(?array $translations = null): static
     {
         $defaultTranslations = [
             'en' => $this->faker->sentence(),
@@ -75,7 +75,7 @@ class CustomFieldValueFactory extends Factory
     /**
      * Create a number field value.
      */
-    public function numberValue(int|float $value = null): static
+    public function numberValue(int | float | null $value = null): static
     {
         return $this->state(fn (array $attributes) => [
             'field_value' => [
@@ -87,7 +87,7 @@ class CustomFieldValueFactory extends Factory
     /**
      * Create a boolean field value.
      */
-    public function booleanValue(bool $value = null): static
+    public function booleanValue(?bool $value = null): static
     {
         return $this->state(fn (array $attributes) => [
             'field_value' => [
@@ -99,7 +99,7 @@ class CustomFieldValueFactory extends Factory
     /**
      * Create a date field value.
      */
-    public function dateValue(string $value = null): static
+    public function dateValue(?string $value = null): static
     {
         return $this->state(fn (array $attributes) => [
             'field_value' => [
@@ -111,10 +111,10 @@ class CustomFieldValueFactory extends Factory
     /**
      * Create a select field value.
      */
-    public function selectValue(string $value = null): static
+    public function selectValue(?string $value = null): static
     {
         $options = ['option1', 'option2', 'option3'];
-        
+
         return $this->state(fn (array $attributes) => [
             'field_value' => [
                 'value' => $value ?? $this->faker->randomElement($options),
@@ -125,7 +125,7 @@ class CustomFieldValueFactory extends Factory
     /**
      * Create a textarea field value.
      */
-    public function textareaValue(string $value = null): static
+    public function textareaValue(?string $value = null): static
     {
         return $this->state(fn (array $attributes) => [
             'field_value' => [

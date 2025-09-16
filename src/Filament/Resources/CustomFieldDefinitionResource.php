@@ -2,16 +2,16 @@
 
 namespace Xoshbin\CustomFields\Filament\Resources;
 
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Tables\Table;
+use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Pages\CreateCustomFieldDefinition;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Pages\EditCustomFieldDefinition;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Pages\ListCustomFieldDefinitions;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Schemas\CustomFieldDefinitionForm;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Tables\CustomFieldDefinitionsTable;
 use Xoshbin\CustomFields\Models\CustomFieldDefinition;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Tables\Table;
-use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 
 class CustomFieldDefinitionResource extends Resource
 {
@@ -21,7 +21,7 @@ class CustomFieldDefinitionResource extends Resource
 
     protected static bool $isScopedToTenant = false;
 
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-adjustments-horizontal';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-adjustments-horizontal';
 
     protected static ?int $navigationSort = 10;
 

@@ -2,9 +2,9 @@
 
 namespace Xoshbin\CustomFields\Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Xoshbin\CustomFields\Enums\CustomFieldType;
 use Xoshbin\CustomFields\Models\CustomFieldDefinition;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Xoshbin\CustomFields\Models\CustomFieldDefinition>

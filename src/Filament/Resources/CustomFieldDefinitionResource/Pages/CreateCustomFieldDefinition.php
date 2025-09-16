@@ -2,9 +2,9 @@
 
 namespace Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Pages;
 
-use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 use Filament\Resources\Pages\CreateRecord;
 use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
+use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 
 class CreateCustomFieldDefinition extends CreateRecord
 {
@@ -25,7 +25,7 @@ class CreateCustomFieldDefinition extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         // Validate and clean field definitions
-        if (!empty($data['field_definitions'])) {
+        if (! empty($data['field_definitions'])) {
             $data['field_definitions'] = $this->validateAndCleanFieldDefinitions($data['field_definitions']);
         }
 
@@ -62,21 +62,21 @@ class CreateCustomFieldDefinition extends CreateRecord
             ];
 
             // Add optional fields if present
-            if (!empty($definition['help_text'])) {
+            if (! empty($definition['help_text'])) {
                 $cleanedDefinition['help_text'] = $definition['help_text'];
             }
 
-            if (!empty($definition['validation_rules'])) {
+            if (! empty($definition['validation_rules'])) {
                 $cleanedDefinition['validation_rules'] = array_filter(
                     array_map('trim', explode(',', $definition['validation_rules']))
                 );
             }
 
             // Handle options for select fields
-            if ($definition['type'] === 'select' && !empty($definition['options'])) {
+            if ($definition['type'] === 'select' && ! empty($definition['options'])) {
                 $cleanedOptions = [];
                 foreach ($definition['options'] as $option) {
-                    if (!empty($option['value']) && !empty($option['label'])) {
+                    if (! empty($option['value']) && ! empty($option['label'])) {
                         $cleanedOptions[] = [
                             'value' => trim($option['value']),
                             'label' => $option['label'],

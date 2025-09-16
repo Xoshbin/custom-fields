@@ -5,7 +5,7 @@ return [
     'plural_label' => 'پێناسەکانی خانەی تایبەت',
     'navigation_label' => 'خانە تایبەتەکان',
     'section_title' => 'خانە تایبەتەکان',
-    
+
     'fields' => [
         'model_type' => 'جۆری مۆدێل',
         'name' => 'ناو',
@@ -23,7 +23,7 @@ return [
         'option_value' => 'نرخ',
         'option_label' => 'ناونیشان',
     ],
-    
+
     'sections' => [
         'basic_information' => 'زانیاری بنەڕەتی',
         'basic_information_description' => 'ڕێکخستنی بنەڕەتی بۆ ئەم پێناسەی خانە تایبەتە.',
@@ -33,7 +33,7 @@ return [
         'field_options' => 'هەڵبژاردنەکانی خانە',
         'field_validation' => 'پشتڕاستکردنەوە و یارمەتی',
     ],
-    
+
     'actions' => [
         'add_field' => 'خانە زیاد بکە',
         'remove_field' => 'خانە لابە',
@@ -42,7 +42,7 @@ return [
         'move_up' => 'بۆ سەرەوە',
         'move_down' => 'بۆ خوارەوە',
     ],
-    
+
     'placeholders' => [
         'field_key' => 'نموونە: پەیوەندی_فریاکەوتن',
         'field_label' => 'نموونە: پەیوەندی فریاکەوتن',
@@ -51,7 +51,7 @@ return [
         'option_value' => 'نموونە: هەڵبژاردن١',
         'option_label' => 'نموونە: هەڵبژاردنی ١',
     ],
-    
+
     'help' => [
         'model_type' => 'جۆری مۆدێل هەڵبژێرە کە ئەم خانە تایبەتانە بەکاردەهێنێت.',
         'field_key' => 'ناسنامەیەکی تایبەت بۆ ئەم خانەیە. تەنها پیتی بچووک، ژمارە و هێڵی ژێرەوە بەکاربهێنە.',
@@ -61,7 +61,7 @@ return [
         'validation_rules' => 'یاساکانی زیاتری پشتڕاستکردنەوەی Laravel (بە کۆما جیاکراوە).',
         'field_order' => 'ڕیزبەندی کە ئەم خانەیە لە فۆڕمەکاندا دەردەکەوێت.',
     ],
-    
+
     'validation' => [
         'field_key_required' => 'کلیلی خانە پێویستە.',
         'field_key_unique' => 'کلیلی خانە دەبێت لەناو ئەم پێناسەیەدا تایبەت بێت.',
@@ -72,7 +72,7 @@ return [
         'option_value_required' => 'نرخی هەڵبژاردن پێویستە.',
         'option_label_required' => 'ناونیشانی هەڵبژاردن پێویستە.',
     ],
-    
+
     'messages' => [
         'no_fields_defined' => 'هێشتا هیچ خانەیەکی تایبەت بۆ ئەم مۆدێلە پێناسە نەکراوە.',
         'definition_saved' => 'پێناسەی خانەی تایبەت بە سەرکەوتوویی پاشەکەوت کرا.',
@@ -81,7 +81,7 @@ return [
         'field_removed' => 'خانە بە سەرکەوتوویی لابرا.',
         'invalid_model_type' => 'جۆری مۆدێلی نادروست هەڵبژێردراوە.',
     ],
-    
+
     'model_types' => [
         'App\\Models\\Partner' => 'هاوبەشەکان',
         'App\\Models\\Product' => 'بەرهەمەکان',

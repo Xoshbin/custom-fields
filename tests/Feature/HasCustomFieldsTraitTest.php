@@ -14,7 +14,9 @@ class HasCustomFieldsTraitTest extends TestCase
     use RefreshDatabase;
 
     protected Company $company;
+
     protected CustomFieldDefinition $definition;
+
     protected Partner $partner;
 
     protected function setUp(): void

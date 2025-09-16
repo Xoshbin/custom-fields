@@ -2,13 +2,13 @@
 
 namespace Xoshbin\CustomFields\Models;
 
-use Xoshbin\CustomFields\Enums\CustomFieldType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Spatie\Translatable\HasTranslations;
+use Xoshbin\CustomFields\Enums\CustomFieldType;
 
 /**
  * Class CustomFieldDefinition
@@ -26,7 +26,8 @@ use Spatie\Translatable\HasTranslations;
  */
 class CustomFieldDefinition extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
+    use HasTranslations;
 
     /**
      * The attributes that are mass assignable.
@@ -63,12 +64,13 @@ class CustomFieldDefinition extends Model
         if (is_array($value)) {
             $value = array_map(function ($field) {
                 // Ensure show_in_table has a default value and convert to boolean
-                if (!isset($field['show_in_table'])) {
+                if (! isset($field['show_in_table'])) {
                     $field['show_in_table'] = false;
                 } else {
                     // Convert string values from Filament forms to boolean
                     $field['show_in_table'] = filter_var($field['show_in_table'], FILTER_VALIDATE_BOOLEAN);
                 }
+
                 return $field;
             }, $value);
         }
@@ -169,6 +171,7 @@ class CustomFieldDefinition extends Model
                 $definitions[$index] = $fieldDefinition;
                 $this->field_definitions = $definitions;
                 $this->save();
+
                 return true;
             }
         }
@@ -184,11 +187,12 @@ class CustomFieldDefinition extends Model
         $definitions = $this->field_definitions ?? [];
         $originalCount = count($definitions);
 
-        $definitions = array_filter($definitions, fn($definition) => $definition['key'] !== $key);
+        $definitions = array_filter($definitions, fn ($definition) => $definition['key'] !== $key);
 
         if (count($definitions) < $originalCount) {
             $this->field_definitions = array_values($definitions);
             $this->save();
+
             return true;
         }
 
@@ -215,13 +219,13 @@ class CustomFieldDefinition extends Model
         $required = ['key', 'label', 'type'];
 
         foreach ($required as $field) {
-            if (!isset($fieldDefinition[$field]) || empty($fieldDefinition[$field])) {
+            if (! isset($fieldDefinition[$field]) || empty($fieldDefinition[$field])) {
                 throw new \InvalidArgumentException("Field {$field} is required");
             }
         }
 
         // Validate field type
-        if (!CustomFieldType::tryFrom($fieldDefinition['type'])) {
+        if (! CustomFieldType::tryFrom($fieldDefinition['type'])) {
             throw new \InvalidArgumentException("Invalid field type: {$fieldDefinition['type']}");
         }
     }
@@ -253,7 +257,7 @@ class CustomFieldDefinition extends Model
 
             if (empty($definition['type'])) {
                 $fieldErrors[] = 'Type is required';
-            } elseif (!in_array($definition['type'], array_column(CustomFieldType::cases(), 'value'))) {
+            } elseif (! in_array($definition['type'], array_column(CustomFieldType::cases(), 'value'))) {
                 $fieldErrors[] = 'Invalid field type';
             }
 
@@ -262,7 +266,7 @@ class CustomFieldDefinition extends Model
                 $fieldErrors[] = 'Select fields must have options';
             }
 
-            if (!empty($fieldErrors)) {
+            if (! empty($fieldErrors)) {
                 $errors["field_{$index}"] = $fieldErrors;
             }
         }

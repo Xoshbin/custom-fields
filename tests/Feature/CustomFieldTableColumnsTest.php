@@ -219,7 +219,7 @@ class CustomFieldTableColumnsTest extends TestCase
         $this->assertCount(2, $columns);
 
         // Check that only visible fields are included
-        $columnNames = array_map(fn($column) => $column->getName(), $columns);
+        $columnNames = array_map(fn ($column) => $column->getName(), $columns);
         $this->assertContains('custom_fields.visible_field_1', $columnNames);
         $this->assertContains('custom_fields.visible_field_2', $columnNames);
         $this->assertNotContains('custom_fields.hidden_field', $columnNames);

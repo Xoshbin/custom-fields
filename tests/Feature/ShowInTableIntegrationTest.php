@@ -7,6 +7,7 @@ use App\Models\CustomFieldDefinition;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Traits\WithConfiguredCompany;
+
 use function Pest\Livewire\livewire;
 
 uses(RefreshDatabase::class, WithConfiguredCompany::class);
@@ -59,7 +60,7 @@ it('complete show_in_table integration test', function () {
 
     // Step 3: Verify CustomFieldTableColumns generates columns correctly
     $columns = CustomFieldTableColumns::make(Product::class);
-    
+
     expect($columns)->toHaveCount(1); // Only the brand field should generate a column
     expect($columns[0]->getName())->toBe('custom_fields.brand');
 

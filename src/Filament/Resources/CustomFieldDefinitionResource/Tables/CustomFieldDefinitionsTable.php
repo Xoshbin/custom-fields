@@ -2,7 +2,6 @@
 
 namespace Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Tables;
 
-use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -13,6 +12,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 
 class CustomFieldDefinitionsTable
 {
@@ -30,6 +30,7 @@ class CustomFieldDefinitionsTable
                     ->label(__('custom-fields::custom_fields.fields.model_type'))
                     ->formatStateUsing(function (string $state): string {
                         $modelTypes = CustomFieldDefinitionResource::getAvailableModelTypes();
+
                         return $modelTypes[$state] ?? class_basename($state);
                     })
                     ->searchable()
@@ -45,6 +46,7 @@ class CustomFieldDefinitionsTable
                         }
 
                         $count = count($state);
+
                         return trans_choice('{1} :count field|[2,*] :count fields', $count, ['count' => $count]);
                     })
                     ->badge()
@@ -92,7 +94,7 @@ class CustomFieldDefinitionsTable
                         } elseif ($data['value'] === 'without_fields') {
                             return $query->where(function ($q) {
                                 $q->whereNull('field_definitions')
-                                  ->orWhereJsonLength('field_definitions', 0);
+                                    ->orWhereJsonLength('field_definitions', 0);
                             });
                         }
 

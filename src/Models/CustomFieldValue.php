@@ -2,12 +2,12 @@
 
 namespace Xoshbin\CustomFields\Models;
 
-use Xoshbin\CustomFields\Enums\CustomFieldType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
+use Xoshbin\CustomFields\Enums\CustomFieldType;
 
 /**
  * Class CustomFieldValue
@@ -26,6 +26,7 @@ use Illuminate\Support\Carbon;
 class CustomFieldValue extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -95,7 +96,7 @@ class CustomFieldValue extends Model
     {
         $definition = $this->getFieldDefinition();
 
-        if (!$definition || !isset($definition['type'])) {
+        if (! $definition || ! isset($definition['type'])) {
             return null;
         }
 
@@ -115,7 +116,7 @@ class CustomFieldValue extends Model
         }
 
         // For translatable values stored as {"en": "English", "ckb": "Kurdish"}
-        if (is_array($fieldValue) && !isset($fieldValue['value'])) {
+        if (is_array($fieldValue) && ! isset($fieldValue['value'])) {
             return $fieldValue;
         }
 
@@ -130,7 +131,7 @@ class CustomFieldValue extends Model
         $fieldType = $this->getFieldType();
         $rawValue = $this->getRawValue();
 
-        if (!$fieldType || $rawValue === null) {
+        if (! $fieldType || $rawValue === null) {
             return $rawValue;
         }
 
@@ -161,6 +162,7 @@ class CustomFieldValue extends Model
         // If it's an array but locale not found, try fallback
         if (is_array($rawValue)) {
             $fallbackLocale = config('app.fallback_locale', 'en');
+
             return $rawValue[$fallbackLocale] ?? array_values($rawValue)[0] ?? null;
         }
 
@@ -175,8 +177,9 @@ class CustomFieldValue extends Model
     {
         $fieldType = $this->getFieldType();
 
-        if (!$fieldType) {
+        if (! $fieldType) {
             $this->field_value = ['value' => $value];
+
             return;
         }
 
@@ -204,7 +207,7 @@ class CustomFieldValue extends Model
     {
         $fieldType = $this->getFieldType();
 
-        if (!$fieldType || !$fieldType->supportsTranslation()) {
+        if (! $fieldType || ! $fieldType->supportsTranslation()) {
             return;
         }
 
@@ -222,6 +225,7 @@ class CustomFieldValue extends Model
     public function isRequired(): bool
     {
         $definition = $this->getFieldDefinition();
+
         return $definition['required'] ?? false;
     }
 
@@ -233,10 +237,10 @@ class CustomFieldValue extends Model
         $value = $this->getRawValue();
 
         if (is_array($value)) {
-            return !empty(array_filter($value, fn($v) => !empty($v)));
+            return ! empty(array_filter($value, fn ($v) => ! empty($v)));
         }
 
-        return !empty($value);
+        return ! empty($value);
     }
 
     /**
@@ -258,7 +262,7 @@ class CustomFieldValue extends Model
         }
 
         // Add custom validation rules from definition
-        if (!empty($definition['validation_rules'])) {
+        if (! empty($definition['validation_rules'])) {
             $rules = array_merge($rules, $definition['validation_rules']);
         }
 

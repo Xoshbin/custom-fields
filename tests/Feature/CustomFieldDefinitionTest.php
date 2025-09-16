@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\CustomFields;
 
-use Xoshbin\CustomFields\Enums\CustomFieldType;
 use App\Models\Company;
-use Xoshbin\CustomFields\Models\CustomFieldDefinition;
 use App\Models\Partner;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Xoshbin\CustomFields\Enums\CustomFieldType;
+use Xoshbin\CustomFields\Models\CustomFieldDefinition;
 
 class CustomFieldDefinitionTest extends TestCase
 {

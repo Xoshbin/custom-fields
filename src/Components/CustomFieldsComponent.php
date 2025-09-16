@@ -2,17 +2,16 @@
 
 namespace Xoshbin\CustomFields\Components;
 
-use Xoshbin\CustomFields\Enums\CustomFieldType;
-use Xoshbin\CustomFields\Models\CustomFieldDefinition;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Schemas\Components\Fieldset;
 use Illuminate\Support\Collection;
+use Xoshbin\CustomFields\Enums\CustomFieldType;
+use Xoshbin\CustomFields\Models\CustomFieldDefinition;
 
 /**
  * CustomFieldsComponent
@@ -25,8 +24,7 @@ class CustomFieldsComponent
     /**
      * Generate custom fields for a specific model type.
      *
-     * @param string $modelClass The model class (e.g., 'App\Models\Partner')
-     * @return Fieldset|null
+     * @param  string  $modelClass  The model class (e.g., 'App\Models\Partner')
      */
     public static function make(string $modelClass): ?Fieldset
     {
@@ -34,7 +32,7 @@ class CustomFieldsComponent
             ->where('is_active', true)
             ->first();
 
-        if (!$definition || empty($definition->field_definitions)) {
+        if (! $definition || empty($definition->field_definitions)) {
             return null;
         }
 
@@ -52,8 +50,7 @@ class CustomFieldsComponent
     /**
      * Generate form fields from field definitions.
      *
-     * @param Collection<int, array> $fieldDefinitions
-     * @return array
+     * @param  Collection<int, array>  $fieldDefinitions
      */
     protected static function generateFields(Collection $fieldDefinitions): array
     {
@@ -81,7 +78,7 @@ class CustomFieldsComponent
         $required = $definition['required'] ?? false;
         $validationRules = $definition['validation_rules'] ?? [];
 
-        if (!$fieldType) {
+        if (! $fieldType) {
             return null;
         }
 
@@ -117,12 +114,12 @@ class CustomFieldsComponent
         }
 
         // Apply custom validation rules
-        if (!empty($validationRules)) {
+        if (! empty($validationRules)) {
             $field = $field->rules($validationRules);
         }
 
         // Add help text if available
-        if (!empty($definition['help_text'])) {
+        if (! empty($definition['help_text'])) {
             $helpText = static::getTranslatedLabel($definition['help_text']);
             $field = $field->helperText($helpText);
         }
@@ -133,7 +130,7 @@ class CustomFieldsComponent
     /**
      * Get translated label from definition.
      */
-    protected static function getTranslatedLabel(array|string $label): string
+    protected static function getTranslatedLabel(array | string $label): string
     {
         if (is_string($label)) {
             return $label;
@@ -171,19 +168,19 @@ class CustomFieldsComponent
      */
     public static function mutateFormDataBeforeFill(array $data, string $modelClass): array
     {
-        if (!isset($data['id'])) {
+        if (! isset($data['id'])) {
             return $data;
         }
 
         $model = $modelClass::find($data['id']);
 
-        if (!$model || !method_exists($model, 'getCustomFieldValues')) {
+        if (! $model || ! method_exists($model, 'getCustomFieldValues')) {
             return $data;
         }
 
         $customFieldValues = $model->getCustomFieldValues();
 
-        if (!empty($customFieldValues)) {
+        if (! empty($customFieldValues)) {
             $data['custom_fields'] = $customFieldValues;
         }
 
@@ -210,13 +207,13 @@ class CustomFieldsComponent
      */
     public static function handleAfterSave($record, array $data): void
     {
-        if (!method_exists($record, 'setCustomFieldValues')) {
+        if (! method_exists($record, 'setCustomFieldValues')) {
             return;
         }
 
         $customFields = $data['_custom_fields'] ?? [];
 
-        if (!empty($customFields)) {
+        if (! empty($customFields)) {
             $record->setCustomFieldValues($customFields);
         }
     }
@@ -230,7 +227,7 @@ class CustomFieldsComponent
             ->where('is_active', true)
             ->first();
 
-        if (!$definition) {
+        if (! $definition) {
             return [];
         }
 
@@ -252,11 +249,11 @@ class CustomFieldsComponent
                 $fieldRules = array_merge($fieldRules, $fieldType->getValidationRules());
             }
 
-            if (!empty($customRules)) {
+            if (! empty($customRules)) {
                 $fieldRules = array_merge($fieldRules, $customRules);
             }
 
-            if (!empty($fieldRules)) {
+            if (! empty($fieldRules)) {
                 $rules["custom_fields.{$fieldKey}"] = $fieldRules;
             }
         }

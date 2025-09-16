@@ -2,8 +2,6 @@
 
 namespace Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Schemas;
 
-use Xoshbin\CustomFields\Enums\CustomFieldType;
-use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -14,6 +12,8 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Xoshbin\CustomFields\Enums\CustomFieldType;
+use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 
 class CustomFieldDefinitionForm
 {
@@ -131,8 +131,8 @@ class CustomFieldDefinitionForm
                                 ->addActionLabel(__('custom_fields.actions.add_option'))
                                 ->reorderableWithButtons()
                                 ->collapsible()
-                                ->itemLabel(fn (array $state): ?string =>
-                                    is_array($state['label'] ?? null)
+                                ->itemLabel(
+                                    fn (array $state): ?string => is_array($state['label'] ?? null)
                                         ? ($state['label'][app()->getLocale()] ?? $state['label']['en'] ?? null)
                                         : ($state['label'] ?? null)
                                 ),
@@ -154,8 +154,8 @@ class CustomFieldDefinitionForm
                         ->addActionLabel(__('custom_fields.actions.add_field'))
                         ->reorderableWithButtons()
                         ->collapsible()
-                        ->itemLabel(fn (array $state): ?string =>
-                            is_array($state['label'] ?? null)
+                        ->itemLabel(
+                            fn (array $state): ?string => is_array($state['label'] ?? null)
                                 ? ($state['label']['en'] ?? $state['label'][array_key_first($state['label'])] ?? null)
                                 : ($state['label'] ?? $state['key'] ?? null)
                         )

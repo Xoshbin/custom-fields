@@ -5,7 +5,7 @@ return [
     'plural_label' => 'تعريفات الحقول المخصصة',
     'navigation_label' => 'الحقول المخصصة',
     'section_title' => 'الحقول المخصصة',
-    
+
     'fields' => [
         'model_type' => 'نوع النموذج',
         'name' => 'الاسم',
@@ -23,7 +23,7 @@ return [
         'option_value' => 'القيمة',
         'option_label' => 'التسمية',
     ],
-    
+
     'sections' => [
         'basic_information' => 'المعلومات الأساسية',
         'basic_information_description' => 'تكوين الإعدادات الأساسية لتعريف الحقل المخصص هذا.',
@@ -33,7 +33,7 @@ return [
         'field_options' => 'خيارات الحقل',
         'field_validation' => 'التحقق والمساعدة',
     ],
-    
+
     'actions' => [
         'add_field' => 'إضافة حقل',
         'remove_field' => 'إزالة حقل',
@@ -42,7 +42,7 @@ return [
         'move_up' => 'تحريك لأعلى',
         'move_down' => 'تحريك لأسفل',
     ],
-    
+
     'placeholders' => [
         'field_key' => 'مثال: جهة_اتصال_طوارئ',
         'field_label' => 'مثال: جهة اتصال الطوارئ',
@@ -51,7 +51,7 @@ return [
         'option_value' => 'مثال: خيار1',
         'option_label' => 'مثال: الخيار 1',
     ],
-    
+
     'help' => [
         'model_type' => 'اختر نوع النموذج الذي سيستخدم هذه الحقول المخصصة.',
         'field_key' => 'معرف فريد لهذا الحقل. استخدم الأحرف الصغيرة والأرقام والشرطات السفلية فقط.',
@@ -61,7 +61,7 @@ return [
         'validation_rules' => 'قواعد التحقق الإضافية لـ Laravel (مفصولة بفواصل).',
         'field_order' => 'الترتيب الذي سيظهر به هذا الحقل في النماذج.',
     ],
-    
+
     'validation' => [
         'field_key_required' => 'مفتاح الحقل مطلوب.',
         'field_key_unique' => 'يجب أن يكون مفتاح الحقل فريداً ضمن هذا التعريف.',
@@ -72,7 +72,7 @@ return [
         'option_value_required' => 'قيمة الخيار مطلوبة.',
         'option_label_required' => 'تسمية الخيار مطلوبة.',
     ],
-    
+
     'messages' => [
         'no_fields_defined' => 'لم يتم تعريف أي حقول مخصصة لهذا النموذج بعد.',
         'definition_saved' => 'تم حفظ تعريف الحقل المخصص بنجاح.',
@@ -81,7 +81,7 @@ return [
         'field_removed' => 'تم إزالة الحقل بنجاح.',
         'invalid_model_type' => 'تم اختيار نوع نموذج غير صحيح.',
     ],
-    
+
     'model_types' => [
         'App\\Models\\Partner' => 'الشركاء',
         'App\\Models\\Product' => 'المنتجات',

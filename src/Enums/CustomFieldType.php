@@ -133,6 +133,7 @@ enum CustomFieldType: string implements HasColor, HasIcon, HasLabel
             foreach ($value as $key => $val) {
                 $result[$key] = $this->castSingleValue($val);
             }
+
             return $result;
         }
 

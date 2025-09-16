@@ -2,10 +2,10 @@
 
 namespace Xoshbin\CustomFields\Traits;
 
-use Xoshbin\CustomFields\Models\CustomFieldDefinition;
-use Xoshbin\CustomFields\Models\CustomFieldValue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Xoshbin\CustomFields\Models\CustomFieldDefinition;
+use Xoshbin\CustomFields\Models\CustomFieldValue;
 
 /**
  * Trait HasCustomFields
@@ -78,13 +78,13 @@ trait HasCustomFields
         $customFieldValue = $this->customFieldValues
             ->firstWhere('field_key', $fieldKey);
 
-        if (!$customFieldValue) {
+        if (! $customFieldValue) {
             return null;
         }
 
         // If no locale specified and the value is translatable, return the full array
         $rawValue = $customFieldValue->getRawValue();
-        if ($locale === null && is_array($rawValue) && !isset($rawValue['value'])) {
+        if ($locale === null && is_array($rawValue) && ! isset($rawValue['value'])) {
             return $rawValue;
         }
 
@@ -98,12 +98,12 @@ trait HasCustomFields
     {
         $definition = $this->getCustomFieldDefinition();
 
-        if (!$definition) {
-            throw new \InvalidArgumentException("No custom field definition found for this model.");
+        if (! $definition) {
+            throw new \InvalidArgumentException('No custom field definition found for this model.');
         }
 
         $fieldDefinition = $definition->getFieldDefinition($fieldKey);
-        if (!$fieldDefinition) {
+        if (! $fieldDefinition) {
             throw new \InvalidArgumentException("Custom field '{$fieldKey}' is not defined for this model.");
         }
 
@@ -113,10 +113,10 @@ trait HasCustomFields
         }
 
         // Validate select field options
-        if (($fieldDefinition['type'] ?? '') === 'select' && !empty($value)) {
+        if (($fieldDefinition['type'] ?? '') === 'select' && ! empty($value)) {
             $options = $fieldDefinition['options'] ?? [];
             $validValues = array_column($options, 'value');
-            if (!in_array($value, $validValues)) {
+            if (! in_array($value, $validValues)) {
                 throw new \InvalidArgumentException("Invalid option '{$value}' for select field '{$fieldKey}'.");
             }
         }
@@ -125,7 +125,7 @@ trait HasCustomFields
             ->where('field_key', $fieldKey)
             ->first();
 
-        if (!$customFieldValue) {
+        if (! $customFieldValue) {
             $customFieldValue = new CustomFieldValue([
                 'custom_field_definition_id' => $definition->id,
                 'customizable_type' => static::class,
@@ -135,7 +135,7 @@ trait HasCustomFields
         }
 
         // Handle translatable arrays
-        if (is_array($value) && $locale === null && !isset($value['value'])) {
+        if (is_array($value) && $locale === null && ! isset($value['value'])) {
             // This is a translatable array like ['en' => 'English', 'ar' => 'Arabic']
             $customFieldValue->setTranslatableValues($value);
         } else {
@@ -151,7 +151,7 @@ trait HasCustomFields
     /**
      * Set multiple custom field values.
      *
-     * @param array<string, mixed> $values
+     * @param  array<string, mixed>  $values
      */
     public function setCustomFieldValues(array $values, ?string $locale = null): void
     {
@@ -163,18 +163,18 @@ trait HasCustomFields
     /**
      * Set translatable custom field values for all locales.
      *
-     * @param array<string, array<string, mixed>> $values Format: ['field_key' => ['en' => 'value', 'ckb' => 'value']]
+     * @param  array<string, array<string, mixed>>  $values  Format: ['field_key' => ['en' => 'value', 'ckb' => 'value']]
      */
     public function setTranslatableCustomFieldValues(array $values): void
     {
         $definition = $this->getCustomFieldDefinition();
 
-        if (!$definition) {
+        if (! $definition) {
             return;
         }
 
         foreach ($values as $fieldKey => $localeValues) {
-            if (!$definition->getFieldDefinition($fieldKey)) {
+            if (! $definition->getFieldDefinition($fieldKey)) {
                 continue;
             }
 
@@ -182,7 +182,7 @@ trait HasCustomFields
                 ->where('field_key', $fieldKey)
                 ->first();
 
-            if (!$customFieldValue) {
+            if (! $customFieldValue) {
                 $customFieldValue = new CustomFieldValue([
                     'custom_field_definition_id' => $definition->id,
                     'customizable_type' => static::class,
@@ -211,6 +211,7 @@ trait HasCustomFields
         if ($customFieldValue) {
             $customFieldValue->delete();
             $this->load('customFieldValues');
+
             return true;
         }
 
@@ -267,7 +268,7 @@ trait HasCustomFields
     /**
      * Validate custom field values.
      *
-     * @param array<string, mixed> $values
+     * @param  array<string, mixed>  $values
      * @return array<string, array<string>>
      */
     public function validateCustomFieldValues(array $values): array
@@ -275,7 +276,7 @@ trait HasCustomFields
         $definition = $this->getCustomFieldDefinition();
         $errors = [];
 
-        if (!$definition) {
+        if (! $definition) {
             return $errors;
         }
 
@@ -291,7 +292,7 @@ trait HasCustomFields
 
             $rules = $tempValue->getValidationRules();
 
-            if (!empty($rules)) {
+            if (! empty($rules)) {
                 $validator = validator([$fieldKey => $value], [$fieldKey => $rules]);
 
                 if ($validator->fails()) {
@@ -309,7 +310,7 @@ trait HasCustomFields
     public function scopeWithCustomFields($query)
     {
         return $query->with([
-            'customFieldValues.customFieldDefinition'
+            'customFieldValues.customFieldDefinition',
         ]);
     }
 
@@ -324,7 +325,7 @@ trait HasCustomFields
 
         foreach ($this->customFieldValues as $customFieldValue) {
             $value = $customFieldValue->getDisplayValue();
-            if (!empty($value)) {
+            if (! empty($value)) {
                 $searchable[$customFieldValue->field_key] = $value;
             }
         }

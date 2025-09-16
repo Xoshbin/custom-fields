@@ -16,8 +16,8 @@ return new class extends Migration
 
             // Reference to the custom field definition
             $table->foreignId('custom_field_definition_id')
-                  ->constrained('custom_field_definitions')
-                  ->onDelete('cascade');
+                ->constrained('custom_field_definitions')
+                ->onDelete('cascade');
 
             // Polymorphic relationship to the model instance that has custom field values
             $table->string('customizable_type'); // e.g., 'App\Models\Partner'
