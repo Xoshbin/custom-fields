@@ -1,5 +1,5 @@
 {
-    "name": "xoshbin/custom-fields",
+    "name": "xoshbin/filament-custom-fields",
     "description": "A Filament v4 plugin for adding custom fields to any model",
     "keywords": [
         "Xoshbin",
@@ -8,10 +8,10 @@
         "custom-fields",
         "plugin"
     ],
-    "homepage": "https://github.com/xoshbin/custom-fields",
+    "homepage": "https://github.com/xoshbin/filament-custom-fields",
     "support": {
-        "issues": "https://github.com/xoshbin/custom-fields/issues",
-        "source": "https://github.com/xoshbin/custom-fields"
+        "issues": "https://github.com/xoshbin/filament-custom-fields/issues",
+        "source": "https://github.com/xoshbin/filament-custom-fields"
     },
     "license": "MIT",
     "authors": [
