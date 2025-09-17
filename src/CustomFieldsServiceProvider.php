@@ -27,17 +27,10 @@ class CustomFieldsServiceProvider extends PackageServiceProvider
             ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
-                    ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('xoshbin/custom-fields');
+                    ->askToStarRepoOnGitHub('xoshbin/filament-custom-fields');
             });
-
-        $configFileName = $package->shortName();
-
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
-            $package->hasConfigFile();
-        }
 
         if (file_exists($package->basePath('/../database/migrations'))) {
             $package->hasMigrations($this->getMigrations());
@@ -45,10 +38,6 @@ class CustomFieldsServiceProvider extends PackageServiceProvider
 
         if (file_exists($package->basePath('/../resources/lang'))) {
             $package->hasTranslations();
-        }
-
-        if (file_exists($package->basePath('/../resources/views'))) {
-            $package->hasViews(static::$viewNamespace);
         }
     }
 
@@ -82,7 +71,7 @@ class CustomFieldsServiceProvider extends PackageServiceProvider
 
     protected function getAssetPackageName(): ?string
     {
-        return 'xoshbin/custom-fields';
+        return 'xoshbin/filament-custom-fields';
     }
 
     /**

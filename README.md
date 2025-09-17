@@ -85,7 +85,7 @@ The Custom Fields System for Laravel Filament provides a flexible way to add dyn
 You can install the package via composer:
 
 ```bash
-composer require xoshbin/custom-fields
+composer require xoshbin/filament-custom-fields
 ```
 
 You can publish and run the migrations with:
@@ -95,16 +95,10 @@ php artisan vendor:publish --tag="custom-fields-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
+You can publish the translations with:
 
 ```bash
-php artisan vendor:publish --tag="custom-fields-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="custom-fields-views"
+php artisan vendor:publish --tag="custom-fields-translations"
 ```
 
 ## Usage Guide
