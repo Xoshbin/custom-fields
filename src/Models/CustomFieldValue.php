@@ -139,85 +139,30 @@ class CustomFieldValue extends Model
     }
 
     /**
-     * Get the value (alias for getTranslatedValue for backward compatibility).
+     * Get the value.
      */
-    public function getValue(?string $locale = null): mixed
+    public function getValue(): mixed
     {
-        return $this->getTranslatedValue($locale);
-    }
-
-    /**
-     * Get the translated value for translatable fields.
-     */
-    public function getTranslatedValue(?string $locale = null): mixed
-    {
-        $locale = $locale ?? app()->getLocale();
-        $rawValue = $this->getRawValue();
-
-        // If it's an array (translatable), get the specific locale
-        if (is_array($rawValue) && isset($rawValue[$locale])) {
-            return $rawValue[$locale];
-        }
-
-        // If it's an array but locale not found, try fallback
-        if (is_array($rawValue)) {
-            $fallbackLocale = config('app.fallback_locale', 'en');
-
-            return $rawValue[$fallbackLocale] ?? array_values($rawValue)[0] ?? null;
-        }
-
-        // For non-translatable fields, return the cast value
         return $this->getCastValue();
     }
 
     /**
      * Set the value with proper type casting and structure.
      */
-    public function setValue(mixed $value, ?string $locale = null): void
+    public function setValue(mixed $value): void
     {
         $fieldType = $this->getFieldType();
 
         if (! $fieldType) {
             $this->field_value = ['value' => $value];
-
             return;
         }
 
-        // Handle translatable fields
-        if ($fieldType->supportsTranslation() && $locale) {
-            $currentValue = $this->field_value ?? [];
-
-            // Remove 'value' key if it exists (converting from non-translatable)
-            if (isset($currentValue['value'])) {
-                unset($currentValue['value']);
-            }
-
-            $currentValue[$locale] = $fieldType->castValue($value);
-            $this->field_value = $currentValue;
-        } else {
-            // For non-translatable fields, store as simple value
-            $this->field_value = ['value' => $fieldType->castValue($value)];
-        }
+        // Store as simple value
+        $this->field_value = ['value' => $fieldType->castValue($value)];
     }
 
-    /**
-     * Set translatable values for all locales.
-     */
-    public function setTranslatableValues(array $values): void
-    {
-        $fieldType = $this->getFieldType();
 
-        if (! $fieldType || ! $fieldType->supportsTranslation()) {
-            return;
-        }
-
-        $castValues = [];
-        foreach ($values as $locale => $value) {
-            $castValues[$locale] = $fieldType->castValue($value);
-        }
-
-        $this->field_value = $castValues;
-    }
 
     /**
      * Check if this field is required.
@@ -272,9 +217,9 @@ class CustomFieldValue extends Model
     /**
      * Get the display value for this field.
      */
-    public function getDisplayValue(?string $locale = null): string
+    public function getDisplayValue(): string
     {
-        $value = $this->getTranslatedValue($locale);
+        $value = $this->getValue();
         $fieldType = $this->getFieldType();
 
         if ($value === null || $value === '') {

@@ -6,12 +6,9 @@ use Filament\Support\Assets\Asset;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
-use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Xoshbin\CustomFields\Commands\CustomFieldsCommand;
-use Xoshbin\CustomFields\Testing\TestsCustomFields;
 
 class CustomFieldsServiceProvider extends PackageServiceProvider
 {
@@ -81,9 +78,6 @@ class CustomFieldsServiceProvider extends PackageServiceProvider
                 ], 'custom-fields-stubs');
             }
         }
-
-        // Testing
-        Testable::mixin(new TestsCustomFields);
     }
 
     protected function getAssetPackageName(): ?string
@@ -107,7 +101,7 @@ class CustomFieldsServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            CustomFieldsCommand::class,
+            // No commands defined
         ];
     }
 

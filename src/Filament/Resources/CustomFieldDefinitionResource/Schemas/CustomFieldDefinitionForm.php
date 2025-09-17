@@ -131,11 +131,7 @@ class CustomFieldDefinitionForm
                                 ->addActionLabel(__('custom_fields.actions.add_option'))
                                 ->reorderableWithButtons()
                                 ->collapsible()
-                                ->itemLabel(
-                                    fn (array $state): ?string => is_array($state['label'] ?? null)
-                                        ? ($state['label'][app()->getLocale()] ?? $state['label']['en'] ?? null)
-                                        : ($state['label'] ?? null)
-                                ),
+                                ->itemLabel(fn (array $state): ?string => $state['label'] ?? null),
 
                             Textarea::make('help_text')
                                 ->label(__('custom_fields.fields.field_help_text'))
@@ -154,11 +150,7 @@ class CustomFieldDefinitionForm
                         ->addActionLabel(__('custom_fields.actions.add_field'))
                         ->reorderableWithButtons()
                         ->collapsible()
-                        ->itemLabel(
-                            fn (array $state): ?string => is_array($state['label'] ?? null)
-                                ? ($state['label']['en'] ?? $state['label'][array_key_first($state['label'])] ?? null)
-                                : ($state['label'] ?? $state['key'] ?? null)
-                        )
+                        ->itemLabel(fn (array $state): ?string => $state['label'] ?? $state['key'] ?? null)
                         ->defaultItems(0)
                         ->columnSpanFull(),
                 ])

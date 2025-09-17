@@ -98,16 +98,7 @@ enum CustomFieldType: string implements HasColor, HasIcon, HasLabel
         };
     }
 
-    /**
-     * Check if this field type supports translation.
-     */
-    public function supportsTranslation(): bool
-    {
-        return match ($this) {
-            self::Text, self::Textarea => true,
-            default => false,
-        };
-    }
+
 
     /**
      * Get the default value for this field type.
@@ -126,24 +117,6 @@ enum CustomFieldType: string implements HasColor, HasIcon, HasLabel
      * Cast value to appropriate type for this field.
      */
     public function castValue(mixed $value): mixed
-    {
-        // Handle arrays (translatable values) by casting each element
-        if (is_array($value)) {
-            $result = [];
-            foreach ($value as $key => $val) {
-                $result[$key] = $this->castSingleValue($val);
-            }
-
-            return $result;
-        }
-
-        return $this->castSingleValue($value);
-    }
-
-    /**
-     * Cast a single value to the appropriate type.
-     */
-    private function castSingleValue(mixed $value): mixed
     {
         return match ($this) {
             self::Text, self::Textarea, self::Select => (string) $value,

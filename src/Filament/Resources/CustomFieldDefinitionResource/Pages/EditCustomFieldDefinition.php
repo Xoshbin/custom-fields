@@ -4,12 +4,10 @@ namespace Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\
 
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 
 class EditCustomFieldDefinition extends EditRecord
 {
-    use Translatable;
 
     protected static string $resource = CustomFieldDefinitionResource::class;
 

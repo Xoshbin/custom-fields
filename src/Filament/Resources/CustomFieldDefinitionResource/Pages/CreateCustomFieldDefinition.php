@@ -3,12 +3,10 @@
 namespace Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
-use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource;
 
 class CreateCustomFieldDefinition extends CreateRecord
 {
-    use Translatable;
 
     protected static string $resource = CustomFieldDefinitionResource::class;
 

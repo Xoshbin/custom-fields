@@ -22,54 +22,30 @@ class CustomFieldDefinitionFactory extends Factory
     {
         return [
             'model_type' => 'App\\Models\\Partner',
-            'name' => [
-                'en' => $this->faker->words(3, true) . ' Custom Fields',
-                'ar' => 'حقول مخصصة ' . $this->faker->word(),
-                'ckb' => 'خانەی تایبەت ' . $this->faker->word(),
-            ],
-            'description' => [
-                'en' => $this->faker->sentence(),
-                'ar' => 'وصف للحقول المخصصة',
-                'ckb' => 'پەسەندکردنی خانەی تایبەت',
-            ],
+            'name' => $this->faker->words(3, true) . ' Custom Fields',
+            'description' => $this->faker->sentence(),
             'field_definitions' => [
                 [
                     'key' => 'sample_text',
-                    'label' => [
-                        'en' => 'Sample Text Field',
-                        'ar' => 'حقل نص تجريبي',
-                        'ckb' => 'خانەی نووسین',
-                    ],
+                    'label' => 'Sample Text Field',
                     'type' => CustomFieldType::Text->value,
                     'required' => false,
                     'show_in_table' => false,
                 ],
                 [
                     'key' => 'sample_select',
-                    'label' => [
-                        'en' => 'Sample Select Field',
-                        'ar' => 'حقل اختيار تجريبي',
-                        'ckb' => 'خانەی هەڵبژاردن',
-                    ],
+                    'label' => 'Sample Select Field',
                     'type' => CustomFieldType::Select->value,
                     'required' => false,
                     'show_in_table' => false,
                     'options' => [
                         [
                             'value' => 'option1',
-                            'label' => [
-                                'en' => 'Option 1',
-                                'ar' => 'الخيار 1',
-                                'ckb' => 'هەڵبژاردە ١',
-                            ],
+                            'label' => 'Option 1',
                         ],
                         [
                             'value' => 'option2',
-                            'label' => [
-                                'en' => 'Option 2',
-                                'ar' => 'الخيار 2',
-                                'ckb' => 'هەڵبژاردە ٢',
-                            ],
+                            'label' => 'Option 2',
                         ],
                     ],
                 ],
@@ -107,7 +83,7 @@ class CustomFieldDefinitionFactory extends Factory
             'field_definitions' => [
                 [
                     'key' => 'simple_text',
-                    'label' => ['en' => 'Simple Text'],
+                    'label' => 'Simple Text',
                     'type' => CustomFieldType::Text->value,
                     'required' => false,
                     'show_in_table' => false,
@@ -125,86 +101,50 @@ class CustomFieldDefinitionFactory extends Factory
             'field_definitions' => [
                 [
                     'key' => 'industry',
-                    'label' => [
-                        'en' => 'Industry',
-                        'ar' => 'الصناعة',
-                        'ckb' => 'پیشەسازی',
-                    ],
+                    'label' => 'Industry',
                     'type' => CustomFieldType::Text->value,
                     'required' => false,
                     'show_in_table' => false,
-                    'help_text' => [
-                        'en' => 'Enter the industry type',
-                        'ar' => 'أدخل نوع الصناعة',
-                        'ckb' => 'جۆری پیشەسازی بنووسە',
-                    ],
+                    'help_text' => 'Enter the industry type',
                 ],
                 [
                     'key' => 'priority',
-                    'label' => [
-                        'en' => 'Priority Level',
-                        'ar' => 'مستوى الأولوية',
-                        'ckb' => 'ئاستی گرنگی',
-                    ],
+                    'label' => 'Priority Level',
                     'type' => CustomFieldType::Select->value,
                     'required' => true,
                     'show_in_table' => false,
                     'options' => [
                         [
                             'value' => 'high',
-                            'label' => [
-                                'en' => 'High Priority',
-                                'ar' => 'أولوية عالية',
-                                'ckb' => 'گرنگی بەرز',
-                            ],
+                            'label' => 'High Priority',
                         ],
                         [
                             'value' => 'medium',
-                            'label' => [
-                                'en' => 'Medium Priority',
-                                'ar' => 'أولوية متوسطة',
-                                'ckb' => 'گرنگی مامناوەند',
-                            ],
+                            'label' => 'Medium Priority',
                         ],
                         [
                             'value' => 'low',
-                            'label' => [
-                                'en' => 'Low Priority',
-                                'ar' => 'أولوية منخفضة',
-                                'ckb' => 'گرنگی کەم',
-                            ],
+                            'label' => 'Low Priority',
                         ],
                     ],
                 ],
                 [
                     'key' => 'established_date',
-                    'label' => [
-                        'en' => 'Established Date',
-                        'ar' => 'تاريخ التأسيس',
-                        'ckb' => 'بەرواری دامەزراندن',
-                    ],
+                    'label' => 'Established Date',
                     'type' => CustomFieldType::Date->value,
                     'required' => false,
                     'show_in_table' => false,
                 ],
                 [
                     'key' => 'is_preferred',
-                    'label' => [
-                        'en' => 'Preferred Partner',
-                        'ar' => 'شريك مفضل',
-                        'ckb' => 'هاوبەشی پەسەند',
-                    ],
+                    'label' => 'Preferred Partner',
                     'type' => CustomFieldType::Boolean->value,
                     'required' => false,
                     'show_in_table' => false,
                 ],
                 [
                     'key' => 'annual_revenue',
-                    'label' => [
-                        'en' => 'Annual Revenue',
-                        'ar' => 'الإيرادات السنوية',
-                        'ckb' => 'داهاتی ساڵانە',
-                    ],
+                    'label' => 'Annual Revenue',
                     'type' => CustomFieldType::Number->value,
                     'required' => false,
                     'show_in_table' => false,
@@ -212,11 +152,7 @@ class CustomFieldDefinitionFactory extends Factory
                 ],
                 [
                     'key' => 'notes',
-                    'label' => [
-                        'en' => 'Additional Notes',
-                        'ar' => 'ملاحظات إضافية',
-                        'ckb' => 'تێبینی زیادە',
-                    ],
+                    'label' => 'Additional Notes',
                     'type' => CustomFieldType::Textarea->value,
                     'required' => false,
                     'show_in_table' => false,

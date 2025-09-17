@@ -49,12 +49,12 @@ trait HasCustomFields
      *
      * @return array<string, mixed>
      */
-    public function getCustomFieldValues(?string $locale = null): array
+    public function getCustomFieldValues(): array
     {
         $values = [];
 
         foreach ($this->customFieldValues as $customFieldValue) {
-            $values[$customFieldValue->field_key] = $customFieldValue->getTranslatedValue($locale);
+            $values[$customFieldValue->field_key] = $customFieldValue->getValue();
         }
 
         return $values;
@@ -73,7 +73,7 @@ trait HasCustomFields
     /**
      * Get a specific custom field value.
      */
-    public function getCustomFieldValue(string $fieldKey, ?string $locale = null): mixed
+    public function getCustomFieldValue(string $fieldKey): mixed
     {
         $customFieldValue = $this->customFieldValues
             ->firstWhere('field_key', $fieldKey);
@@ -82,19 +82,13 @@ trait HasCustomFields
             return null;
         }
 
-        // If no locale specified and the value is translatable, return the full array
-        $rawValue = $customFieldValue->getRawValue();
-        if ($locale === null && is_array($rawValue) && ! isset($rawValue['value'])) {
-            return $rawValue;
-        }
-
-        return $customFieldValue->getTranslatedValue($locale);
+        return $customFieldValue->getValue();
     }
 
     /**
      * Set a custom field value.
      */
-    public function setCustomFieldValue(string $fieldKey, mixed $value, ?string $locale = null): void
+    public function setCustomFieldValue(string $fieldKey, mixed $value): void
     {
         $definition = $this->getCustomFieldDefinition();
 
@@ -134,13 +128,7 @@ trait HasCustomFields
             ]);
         }
 
-        // Handle translatable arrays
-        if (is_array($value) && $locale === null && ! isset($value['value'])) {
-            // This is a translatable array like ['en' => 'English', 'ar' => 'Arabic']
-            $customFieldValue->setTranslatableValues($value);
-        } else {
-            $customFieldValue->setValue($value, $locale);
-        }
+        $customFieldValue->setValue($value);
 
         $customFieldValue->save();
 
@@ -153,51 +141,14 @@ trait HasCustomFields
      *
      * @param  array<string, mixed>  $values
      */
-    public function setCustomFieldValues(array $values, ?string $locale = null): void
+    public function setCustomFieldValues(array $values): void
     {
         foreach ($values as $fieldKey => $value) {
-            $this->setCustomFieldValue($fieldKey, $value, $locale);
+            $this->setCustomFieldValue($fieldKey, $value);
         }
     }
 
-    /**
-     * Set translatable custom field values for all locales.
-     *
-     * @param  array<string, array<string, mixed>>  $values  Format: ['field_key' => ['en' => 'value', 'ckb' => 'value']]
-     */
-    public function setTranslatableCustomFieldValues(array $values): void
-    {
-        $definition = $this->getCustomFieldDefinition();
 
-        if (! $definition) {
-            return;
-        }
-
-        foreach ($values as $fieldKey => $localeValues) {
-            if (! $definition->getFieldDefinition($fieldKey)) {
-                continue;
-            }
-
-            $customFieldValue = $this->customFieldValues()
-                ->where('field_key', $fieldKey)
-                ->first();
-
-            if (! $customFieldValue) {
-                $customFieldValue = new CustomFieldValue([
-                    'custom_field_definition_id' => $definition->id,
-                    'customizable_type' => static::class,
-                    'customizable_id' => $this->id,
-                    'field_key' => $fieldKey,
-                ]);
-            }
-
-            $customFieldValue->setTranslatableValues($localeValues);
-            $customFieldValue->save();
-        }
-
-        // Refresh the relationship
-        $this->load('customFieldValues');
-    }
 
     /**
      * Remove a custom field value.

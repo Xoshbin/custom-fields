@@ -21,24 +21,24 @@ return new class extends Migration
             // Structure: [
             //   {
             //     "key": "emergency_contact",                                    // Unique field identifier
-            //     "label": {"en": "Emergency Contact", "ckb": "پەیوەندی لەکاتی فریاکەوتن"}, // Translatable field label
+            //     "label": "Emergency Contact",                                 // Field label
             //     "type": "text",                                               // Field type: text, textarea, number, boolean, date, select
             //     "required": false,                                            // Whether field is required
             //     "show_in_table": false,                                       // Whether to display as table column in Filament resources
             //     "options": [                                                  // For select fields only
-            //       {"value": "option1", "label": {"en": "Option 1"}},
-            //       {"value": "option2", "label": {"en": "Option 2"}}
+            //       {"value": "option1", "label": "Option 1"},
+            //       {"value": "option2", "label": "Option 2"}
             //     ],
             //     "validation_rules": ["max:255"],                              // Additional Laravel validation rules
-            //     "help_text": {"en": "Enter emergency contact information"}   // Optional help text
+            //     "help_text": "Enter emergency contact information"          // Optional help text
             //   },
             //   ...
             // ]
             $table->json('field_definitions');
 
             // Metadata
-            $table->json('name'); // Translatable name for this set of custom fields
-            $table->json('description')->nullable(); // Translatable description
+            $table->string('name'); // Name for this set of custom fields
+            $table->text('description')->nullable(); // Description
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 

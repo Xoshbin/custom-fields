@@ -12,7 +12,6 @@ The Custom Fields System for Laravel Filament provides a flexible way to add dyn
 ## Key Features
 
 - **Single Record Per Model**: One `CustomFieldDefinition` record contains multiple field definitions using Filament repeater components
-- **Full Translation Support**: Integration with Spatie Laravel Translatable plugin
 - **Multiple Field Types**: Text, Textarea, Number, Boolean, Date, and Select fields
 - **Validation Support**: Built-in validation with custom rules
 - **Filament Integration**: Seamless integration with existing Filament resources
@@ -54,13 +53,11 @@ The Custom Fields System for Laravel Filament provides a flexible way to add dyn
 
 **CustomFieldDefinition Model** (`Xoshbin\CustomFields\Models\CustomFieldDefinition`)
 - Manages field definitions for a specific model type
-- Uses `HasTranslations` trait for multilingual support
 - Provides methods for managing field definitions
 
 **CustomFieldValue Model** (`Xoshbin\CustomFields\Models\CustomFieldValue`)
 - Stores actual field values with polymorphic relationships
 - Handles type-safe value casting
-- Supports both simple and translatable values
 
 #### 2. Traits
 
@@ -262,17 +259,8 @@ $description = $partner->getCustomFieldValue('description', 'ar');
 ### Select
 - Dropdown selection
 - Requires predefined options
-- Supports translatable option labels
+
 - Validates against available options
-
-## Translation Support
-
-The system fully supports translations using the Spatie Laravel Translatable plugin:
-
-- **Field Labels**: Translatable in multiple languages
-- **Help Text**: Translatable descriptions and help text
-- **Select Options**: Translatable option labels
-- **Field Values**: Optional translatable values for text fields
 
 ## Validation
 

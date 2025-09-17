@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Spatie\Translatable\HasTranslations;
 use Xoshbin\CustomFields\Enums\CustomFieldType;
 
 /**
@@ -16,8 +15,8 @@ use Xoshbin\CustomFields\Enums\CustomFieldType;
  * @property int $id
  * @property string $model_type
  * @property array $field_definitions
- * @property array<string, string> $name
- * @property array<string, string>|null $description
+ * @property string $name
+ * @property string|null $description
  * @property bool $is_active
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -27,7 +26,6 @@ use Xoshbin\CustomFields\Enums\CustomFieldType;
 class CustomFieldDefinition extends Model
 {
     use HasFactory;
-    use HasTranslations;
 
     /**
      * The attributes that are mass assignable.
@@ -78,12 +76,7 @@ class CustomFieldDefinition extends Model
         $this->attributes['field_definitions'] = json_encode($value);
     }
 
-    /**
-     * The attributes that are translatable.
-     *
-     * @var array<int, string>
-     */
-    public array $translatable = ['name', 'description'];
+
 
     /**
      * The model's default values for attributes.
@@ -96,23 +89,13 @@ class CustomFieldDefinition extends Model
     ];
 
     /**
-     * Get the translatable fields that should be searched.
+     * Get the fields that should be searched.
      *
      * @return array<int, string>
      */
-    public function getTranslatableSearchFields(): array
+    public function getSearchFields(): array
     {
-        return ['name', 'description'];
-    }
-
-    /**
-     * Get the non-translatable fields that should be searched.
-     *
-     * @return array<int, string>
-     */
-    public function getNonTranslatableSearchFields(): array
-    {
-        return ['model_type'];
+        return ['name', 'description', 'model_type'];
     }
 
     /**

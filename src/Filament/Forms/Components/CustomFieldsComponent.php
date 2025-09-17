@@ -7,7 +7,6 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Get;
 use Filament\Schemas\Components\Fieldset;
 use Illuminate\Support\Collection;
 use Xoshbin\CustomFields\Enums\CustomFieldType;
@@ -74,7 +73,7 @@ class CustomFieldsComponent
     {
         $fieldKey = $definition['key'];
         $fieldType = CustomFieldType::tryFrom($definition['type']);
-        $label = static::getTranslatedLabel($definition['label']);
+        $label = static::getLabel($definition['label']);
         $required = $definition['required'] ?? false;
         $validationRules = $definition['validation_rules'] ?? [];
 
@@ -120,7 +119,7 @@ class CustomFieldsComponent
 
         // Add help text if available
         if (! empty($definition['help_text'])) {
-            $helpText = static::getTranslatedLabel($definition['help_text']);
+            $helpText = static::getLabel($definition['help_text']);
             $field = $field->helperText($helpText);
         }
 
@@ -128,27 +127,15 @@ class CustomFieldsComponent
     }
 
     /**
-     * Get translated label from definition.
+     * Get label from definition.
      */
-    protected static function getTranslatedLabel(array | string $label): string
+    protected static function getLabel(string $label): string
     {
-        if (is_string($label)) {
-            return $label;
-        }
-
-        $locale = app()->getLocale();
-
-        if (isset($label[$locale])) {
-            return $label[$locale];
-        }
-
-        $fallbackLocale = config('app.fallback_locale', 'en');
-
-        return $label[$fallbackLocale] ?? array_values($label)[0] ?? '';
+        return $label;
     }
 
     /**
-     * Get select options with translation support.
+     * Get select options.
      */
     protected static function getSelectOptions(array $options): array
     {
@@ -156,7 +143,7 @@ class CustomFieldsComponent
 
         foreach ($options as $option) {
             $value = $option['value'] ?? '';
-            $label = static::getTranslatedLabel($option['label'] ?? $value);
+            $label = $option['label'] ?? $value;
             $result[$value] = $label;
         }
 
@@ -190,7 +177,7 @@ class CustomFieldsComponent
     /**
      * Mutate form data before save (for create and edit operations).
      */
-    public static function mutateFormDataBeforeSave(array $data, string $modelClass): array
+    public static function mutateFormDataBeforeSave(array $data): array
     {
         // Extract custom fields from the main data array
         $customFields = $data['custom_fields'] ?? [];

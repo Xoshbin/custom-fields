@@ -5,7 +5,6 @@ namespace Xoshbin\CustomFields\Filament\Resources;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Pages\CreateCustomFieldDefinition;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Pages\EditCustomFieldDefinition;
 use Xoshbin\CustomFields\Filament\Resources\CustomFieldDefinitionResource\Pages\ListCustomFieldDefinitions;
@@ -15,7 +14,6 @@ use Xoshbin\CustomFields\Models\CustomFieldDefinition;
 
 class CustomFieldDefinitionResource extends Resource
 {
-    use Translatable;
 
     protected static ?string $model = CustomFieldDefinition::class;
 

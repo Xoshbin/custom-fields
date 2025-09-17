@@ -28,7 +28,6 @@ return new class extends Migration
 
             // The actual value stored as JSON to handle different data types
             // For simple types: {"value": "John Doe"}
-            // For translatable types: {"translatable": true, "value": {"en": "Emergency Contact", "ckb": "پەیوەندی فریاکەوتن"}}
             // For arrays/objects: {"value": ["option1", "option2"]}
             $table->json('field_value');
 
