@@ -51,10 +51,29 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
+        config()->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+            'foreign_key_constraints' => true,
+        ]);
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_custom-fields_table.php.stub';
-        $migration->up();
-        */
+        // Set up locale for translations
+        config()->set('app.locale', 'en');
+        config()->set('app.fallback_locale', 'en');
+    }
+
+    protected function defineDatabaseMigrations()
+    {
+        // Run package migrations
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        // Create test model table
+        $this->app['db']->connection()->getSchemaBuilder()->create('partners', function ($table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->nullable();
+            $table->timestamps();
+        });
     }
 }
